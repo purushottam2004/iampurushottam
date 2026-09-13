@@ -46,6 +46,8 @@ pnpm --filter web run dev         # same, explicit filter
 
 Vite typically serves the app on port **5173**.
 
+On Vercel, keep a `vercel.json` with a rewrite of `/(.*)` → `/index.html` in the project Root Directory (`frontend/apps/web` if that is the Root Directory). Without it, client-side routes such as `/about` 404 on refresh.
+
 Browser flows that need the DB belong in **[../e2e/](../e2e/README.md)**. Playwright will build + preview `web` (or reuse `pnpm dev` if it is already up). Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ### Other scripts
