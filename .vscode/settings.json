@@ -1,4 +1,8 @@
 {
-  "typescript.tsdk": "frontend/apps/web/node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "js/ts.tsdk.path": "frontend/apps/web/node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "eslint.workingDirectories": [
+    { "pattern": "frontend/apps/*" },
+    { "pattern": "frontend/packages/*" }
+  ]
 }
