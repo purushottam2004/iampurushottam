@@ -31,17 +31,15 @@ function videoRunOutputDir() {
 }
 
 const WEB_URL = process.env.BASE_URL || "http://127.0.0.1:5173";
-const WEB2_URL = process.env.WEB2_BASE_URL || "http://127.0.0.1:5174";
 
 /**
- * Playwright configuration for template E2E tests.
+ * Playwright configuration for the journal app.
  *
  * Prerequisites (must be running before tests):
  *   1. Supabase:  cd supabase && supabase start
- *   2. Backend:   python main.py / uvicorn on :8080
- *   3. Seed users loaded (python seed.py)
+ *   2. Seed users + journal copy loaded (python seed.py)
  *
- * Frontends are started automatically via webServer (or reused if already up).
+ * The frontend is started automatically via webServer (or reused if already up).
  *
  * Video: set `E2E_VIDEO=1`. Each run writes to `e2e/videos/<timestamp>/`
  * (gitignored). Previous timestamp folders are not deleted.
@@ -74,36 +72,19 @@ export default defineConfig({
   projects: [
     {
       name: "web",
-      testMatch: /(?:^|\/)(smoke|login|hello)\.spec\.ts$/,
+      testMatch: /(?:^|\/)web-(smoke|login)\.spec\.ts$/,
       use: {
         ...devices["Desktop Chrome"],
         baseURL: WEB_URL,
       },
     },
-    {
-      name: "web2",
-      testMatch: /(?:^|\/)(smoke|login|hello)\.spec\.ts$/,
-      use: {
-        ...devices["Desktop Chrome"],
-        baseURL: WEB2_URL,
-      },
-    },
   ],
 
-  webServer: [
-    {
-      command:
-        "cd ../frontend/apps/web && pnpm build && pnpm preview --host 127.0.0.1 --port 5173 --strictPort",
-      url: WEB_URL,
-      reuseExistingServer: !process.env.CI,
-      timeout: 120 * 1000,
-    },
-    {
-      command:
-        "cd ../frontend/apps/web2 && pnpm build && pnpm preview --host 127.0.0.1 --port 5174 --strictPort",
-      url: WEB2_URL,
-      reuseExistingServer: !process.env.CI,
-      timeout: 120 * 1000,
-    },
-  ],
+  webServer: {
+    command:
+      "cd ../frontend/apps/web && pnpm build && pnpm preview --host 127.0.0.1 --port 5173 --strictPort",
+    url: WEB_URL,
+    reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
+  },
 });

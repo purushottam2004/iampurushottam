@@ -69,13 +69,45 @@ def wipe_users(supabase) -> None:
     print_success(f"public.users: wiped {total} user(s)")
 
 
+def wipe_posts(supabase) -> None:
+    print_info("Wiping public.posts")
+    result = supabase.table("posts").delete().neq("slug", "").execute()
+    total = len(result.data or [])
+    print_success(f"public.posts: wiped {total} row(s)")
+
+
+def wipe_site_content(supabase) -> None:
+    print_info("Wiping public.site_content")
+    result = supabase.table("site_content").delete().neq("key", "").execute()
+    total = len(result.data or [])
+    print_success(f"public.site_content: wiped {total} row(s)")
+
+
+def wipe_site_settings(supabase) -> None:
+    print_info("Wiping public.site_settings")
+    result = supabase.table("site_settings").delete().neq("key", "").execute()
+    total = len(result.data or [])
+    print_success(f"public.site_settings: wiped {total} row(s)")
+
+
 def make_steps(supabase):
-    return (("users", lambda: wipe_users(supabase)),)
+    return (
+        ("posts", lambda: wipe_posts(supabase)),
+        ("site_content", lambda: wipe_site_content(supabase)),
+        ("site_settings", lambda: wipe_site_settings(supabase)),
+        ("users", lambda: wipe_users(supabase)),
+    )
 
 
 TABLE_ALIASES = {
     "users": "users",
     "public.users": "users",
+    "posts": "posts",
+    "public.posts": "posts",
+    "site_content": "site_content",
+    "public.site_content": "site_content",
+    "site_settings": "site_settings",
+    "public.site_settings": "site_settings",
 }
 
 

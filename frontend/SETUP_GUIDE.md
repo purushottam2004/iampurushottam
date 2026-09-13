@@ -31,23 +31,22 @@ Vite loads shared env from this folder first, then `apps/<app>/.env*` (app value
 | --- | --- |
 | `VITE_SUPABASE_URL` | From [`supabase/.env`](../supabase/.env.example) → `SUPABASE_URL` (local default `http://127.0.0.1:54321`) |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | From supabase `.env` → `SUPABASE_PUBLISHABLE_KEY` |
-| `VITE_BACKEND_URL` | Backend URL, e.g. `http://127.0.0.1:8080` |
+| `VITE_BACKEND_URL` | Optional backend URL if you run FastAPI locally |
 
 Never put `SUPABASE_SECRET_KEY` in frontend env files.
 
-Optional app-specific overrides: [`apps/web/.env.example`](./apps/web/.env.example), [`apps/web2/.env.example`](./apps/web2/.env.example).
+Optional app-specific overrides: [`apps/web/.env.example`](./apps/web/.env.example).
 
 ### Run
 
 ```bash
-pnpm dev                          # all apps in parallel
-pnpm --filter web run dev         # web only
-pnpm --filter web2 run dev        # web2 only
+pnpm dev                          # journal app
+pnpm --filter web run dev         # same, explicit filter
 ```
 
-Vite typically serves apps on ports **5173** / **5174**.
+Vite typically serves the app on port **5173**.
 
-Browser flows that need backend + DB belong in **[../e2e/](../e2e/README.md)**. Playwright will build + preview these apps (or reuse `pnpm dev` if it is already up). Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).
+Browser flows that need the DB belong in **[../e2e/](../e2e/README.md)**. Playwright will build + preview `web` (or reuse `pnpm dev` if it is already up). Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ### Other scripts
 

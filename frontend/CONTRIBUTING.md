@@ -11,8 +11,8 @@ pnpm lint
 
 ## Where to change code
 
-- **Product behaviour / pages** → `apps/<app>/` (`web`, `web2`)
-- **Shared UI or auth** → `packages/ui`, `packages/auth` (coordinate — both apps depend on them)
+- **Product behaviour / pages** → `apps/web/`
+- **Shared UI or auth** → `packages/ui`, `packages/auth`
 - Prefer existing patterns in `@repo/ui` and `@repo/auth` over one-off copies
 
 ## Apps vs e2e

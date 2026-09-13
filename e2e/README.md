@@ -1,6 +1,6 @@
 # E2E tests (Playwright)
 
-Browser end-to-end tests for this template. Specs live under `tests/`; Playwright starts the frontends (or reuses ones already running).
+Browser end-to-end tests for the journal app. Specs live under `tests/`; Playwright starts the frontend (or reuses one already running).
 
 What each spec covers: **[TESTS.md](./TESTS.md)**.
 
@@ -11,8 +11,7 @@ Stack setup: [../supabase/SETUP_GUIDE.md](../supabase/SETUP_GUIDE.md) · [../bac
 
 | Project | App | Port | Specs |
 | --- | --- | --- | --- |
-| `web` | `frontend/apps/web` | `5173` | `tests/smoke.spec.ts`, `tests/login.spec.ts`, `tests/hello.spec.ts` |
-| `web2` | `frontend/apps/web2` | `5174` | same shared specs |
+| `web` | `frontend/apps/web` | `5173` | `tests/web-smoke.spec.ts`, `tests/web-login.spec.ts` |
 
 ## Prerequisites
 
@@ -25,11 +24,9 @@ Start these yourself before running tests:
    # or: supabase start && python seed.py
    ```
 
-2. **Backend** on `:8080`  
-   From `backend/`, e.g. `python main.py`, uvicorn, or `docker compose up`.  
-   Needed for `hello.spec.ts`. See [backend/SETUP_GUIDE.md](../backend/SETUP_GUIDE.md).
+The journal app talks to Supabase directly. The FastAPI backend is not required for these specs.
 
-Playwright will **build + preview** `web` (`5173`) and `web2` (`5174`) automatically. If those servers are already up, they are reused (outside CI). `frontend/.env` must be filled so the preview build gets `VITE_SUPABASE_*` and `VITE_BACKEND_URL`.
+Playwright will **build + preview** `web` (`5173`) automatically. If that server is already up, it is reused (outside CI). `frontend/.env` must be filled so the preview build gets `VITE_SUPABASE_*`.
 
 The Cursor IDE browser tab often cannot open local apps (`localhost` / `127.0.0.1`). Use these Playwright commands (or `curl`) to verify UI — do not treat a blank IDE-browser tab as the app being down.
 
@@ -49,10 +46,9 @@ Defaults match local seeds; `.env` is only needed if you change URLs or credenti
 From `e2e/`:
 
 ```bash
-npm test                          # all projects
-npm run test:web                  # web only
-npm run test:web2                 # web2 only
-npm run test:headed               # all, headed, 1 worker
+npm test                          # journal specs
+npm run test:web                  # same (`--project=web`)
+npm run test:headed               # headed, 1 worker
 npm run test:headed:video         # headed + record videos → videos/
 npm run test:headed:video:images  # video + distinct JPEG frames (ffmpeg)
 npm run test:web:headed
@@ -65,8 +61,7 @@ npm run codegen                   # record selectors
 Run a single file:
 
 ```bash
-npx playwright test --project=web tests/login.spec.ts
-npx playwright test --project=web2 tests/hello.spec.ts
+npx playwright test --project=web tests/web-login.spec.ts
 ```
 
 `npm run test:browser` uses `playwright.browser-check.config.ts` — it does **not** start the apps. Use it to confirm the browser opens and your window manager rules (float / workspace) apply.
@@ -113,10 +108,9 @@ e2e/
   playwright.browser-check.config.ts
   reporters/extract-video-frames.ts
   tests/
-    helpers/auth.ts           # shared login helpers
-    smoke.spec.ts
-    login.spec.ts
-    hello.spec.ts
+    helpers/auth.ts           # journal login helpers
+    web-smoke.spec.ts
+    web-login.spec.ts
     browser-check.spec.ts
 ```
 

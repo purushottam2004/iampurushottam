@@ -8,6 +8,7 @@ export type LoginFormProps = {
   client?: SupabaseClient
   /** Called after a successful sign-in. */
   onSignedIn?: (user: User) => void
+  className?: string
 }
 
 const formStyle: CSSProperties = {
@@ -33,7 +34,7 @@ const inputStyle: CSSProperties = {
   fontWeight: 400,
 }
 
-export function LoginForm({ client, onSignedIn }: LoginFormProps) {
+export function LoginForm({ client, onSignedIn, className }: LoginFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -67,7 +68,7 @@ export function LoginForm({ client, onSignedIn }: LoginFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={formStyle}>
+    <form onSubmit={handleSubmit} className={className} style={formStyle}>
       <label style={fieldStyle}>
         Email
         <input

@@ -21,8 +21,12 @@ const baseStyle: CSSProperties = {
 }
 
 const variantStyles: Record<ButtonVariant, CSSProperties> = {
-  primary: { background: '#646cff', color: '#fff' },
-  secondary: { background: 'transparent', color: '#646cff', borderColor: '#646cff' },
+  primary: { background: 'var(--accent, #646cff)', color: 'var(--paper, #fff)' },
+  secondary: {
+    background: 'transparent',
+    color: 'var(--accent, #646cff)',
+    borderColor: 'var(--accent, #646cff)',
+  },
 }
 
 export function Button({ variant = 'primary', style, disabled, ...props }: ButtonProps) {

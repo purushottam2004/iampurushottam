@@ -56,7 +56,7 @@ python python_seeds/_001_seed_users.py   # one script
 python unseed.py --all                   # wipe app tables, then seed.py again
 ```
 
-Default password is `password123` (see `python_seeds/data/_001_data_users.py`). E2E login specs use `test@example.com` / that password.
+Default password is `password123` (see `python_seeds/data/_001_data_users.py`). E2E login specs use `test@example.com` / that password. Locally the journal owner is `seed_user@gmail.com`, stored as `site_settings.owner_id` by `_002_seed_journal.py`. On a hosted project, change that row in Studio to your real user uuid — do not edit the migration. Sample posts and about/intro copy also come from `_002_seed_journal.py`.
 
 ### Python tests
 

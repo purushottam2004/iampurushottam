@@ -10,9 +10,12 @@ import unseed
 
 
 def test_resolve_table_name_aliases():
-    assert unseed.resolve_table_name("users", ["users"]) == "users"
-    assert unseed.resolve_table_name("public.users", ["users"]) == "users"
-    assert unseed.resolve_table_name(" USERS ", ["users"]) == "users"
+    names = ["posts", "site_content", "site_settings", "users"]
+    assert unseed.resolve_table_name("users", names) == "users"
+    assert unseed.resolve_table_name("public.users", names) == "users"
+    assert unseed.resolve_table_name(" USERS ", names) == "users"
+    assert unseed.resolve_table_name("posts", names) == "posts"
+    assert unseed.resolve_table_name("public.site_content", names) == "site_content"
 
 
 def test_resolve_table_name_unknown_exits_2():
@@ -39,9 +42,39 @@ def test_main_rejects_all_and_table_name_together(monkeypatch):
     assert exc_info.value.code == 2
 
 
-def test_make_steps_includes_users():
+def test_make_steps_includes_journal_then_users():
     names = [name for name, _fn in unseed.make_steps(MagicMock())]
-    assert names == ["users"]
+    assert names == ["posts", "site_content", "site_settings", "users"]
+
+
+def test_wipe_posts_and_site_content():
+    supabase = MagicMock()
+    posts_result = SimpleNamespace(data=[{"slug": "a"}])
+    content_result = SimpleNamespace(data=[{"key": "about"}])
+    settings_result = SimpleNamespace(data=[{"key": "owner_id"}])
+    posts_table = MagicMock()
+    posts_table.delete.return_value.neq.return_value.execute.return_value = posts_result
+    content_table = MagicMock()
+    content_table.delete.return_value.neq.return_value.execute.return_value = content_result
+    settings_table = MagicMock()
+    settings_table.delete.return_value.neq.return_value.execute.return_value = settings_result
+
+    def table(name: str):
+        if name == "posts":
+            return posts_table
+        if name == "site_content":
+            return content_table
+        if name == "site_settings":
+            return settings_table
+        raise AssertionError(name)
+
+    supabase.table.side_effect = table
+    unseed.wipe_posts(supabase)
+    unseed.wipe_site_content(supabase)
+    unseed.wipe_site_settings(supabase)
+    posts_table.delete.return_value.neq.assert_called_with("slug", "")
+    content_table.delete.return_value.neq.assert_called_with("key", "")
+    settings_table.delete.return_value.neq.assert_called_with("key", "")
 
 
 def test_run_step_reraises():

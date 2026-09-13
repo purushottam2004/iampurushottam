@@ -2,6 +2,8 @@
 
 pnpm monorepo with shared packages and Vite React apps under `apps/`.
 
+`web` is the public journal (Home / About / Writing).
+
 ## Setup
 
 Setup steps live in [SETUP_GUIDE.md](./SETUP_GUIDE.md).

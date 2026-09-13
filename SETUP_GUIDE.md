@@ -25,32 +25,22 @@ Install these before starting:
 
 After Supabase is up, copy values from [`supabase/.env`](./supabase/.env) (created by `setup.py`) into the backend and frontend env files. See each package guide for the exact variable names.
 
-## Verify: login → Hello
+## Verify
 
-Once all three services are running:
+Once Supabase and the frontend are running:
 
-1. Open the web app (typically [http://127.0.0.1:5173](http://127.0.0.1:5173)).
-2. Sign in with a seeded user:
+1. Open the journal app (typically [http://127.0.0.1:5173](http://127.0.0.1:5173)). You should see the public home page — no login wall.
+2. Published posts from the journal seed should be listed. Drafts should not.
+3. Click **Login** (top right). Sign in with a seeded user:
 
-   | Email | Password |
-   | --- | --- |
-   | `seed_user@gmail.com` | `password123` |
-   | `test@example.com` | `password123` |
+   | Email | Password | What you see |
+   | --- | --- | --- |
+   | `seed_user@gmail.com` | `password123` | Owner edit chrome (New, Edit intro, drafts) |
+   | `test@example.com` | `password123` | Signed in, public site only |
 
-3. On the home page, click **Hello**.
-4. You should see a JSON response like:
+The FastAPI backend is not required for the journal app.
 
-   ```json
-   {
-     "message": "hello",
-     "authenticated": true,
-     "user": { "id": "...", "email": "seed_user@gmail.com" }
-   }
-   ```
-
-If Hello fails with a CORS or network error, confirm the backend is on [http://127.0.0.1:8080](http://127.0.0.1:8080), `DEPLOYMENT_ENV=LOCAL` in `backend/.env`, and `VITE_BACKEND_URL=http://127.0.0.1:8080` in `frontend/.env`.
-
-To run the same path in a browser automatically: [e2e/README.md](./e2e/README.md) (`cd e2e && npm test`).
+To run the same path in a browser automatically: [e2e/README.md](./e2e/README.md) (`cd e2e && npm run test:web`).
 
 ## GitHub Actions
 

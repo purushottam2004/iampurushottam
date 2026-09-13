@@ -10,6 +10,12 @@ import pytest
 
 from python_seeds.client import get_auth_user_id_by_email
 from python_seeds.data._001_data_users import SEED_USERS
+from python_seeds.data._002_data_journal import (
+    OWNER_SETTING_KEY,
+    POSTS,
+    SITE_OWNER_ID,
+    published_slugs,
+)
 from python_tests.integration.conftest import run_script
 
 pytestmark = pytest.mark.integration
@@ -30,6 +36,19 @@ def _auth_and_profile(admin_client, email: str, user_id: str) -> dict:
 
 def test_seed_is_idempotent_then_unseed_clears_users(admin_client):
     run_script("seed.py")
+    posts = admin_client.table("posts").select("slug, published").execute().data or []
+    assert {row["slug"] for row in posts} == {post["slug"] for post in POSTS}
+    assert {row["slug"] for row in posts if row["published"]} == set(published_slugs())
+    settings = (
+        admin_client.table("site_settings")
+        .select("key, value")
+        .eq("key", OWNER_SETTING_KEY)
+        .execute()
+        .data
+        or []
+    )
+    assert settings == [{"key": OWNER_SETTING_KEY, "value": SITE_OWNER_ID}]
+
     first_ids = {}
     for user in SEED_USERS:
         row = _auth_and_profile(admin_client, user["email"], user["id"])
@@ -46,6 +65,9 @@ def test_seed_is_idempotent_then_unseed_clears_users(admin_client):
         run_script("unseed.py", "--all")
         remaining = admin_client.table("users").select("id").execute().data or []
         assert remaining == []
+        assert (admin_client.table("posts").select("id").execute().data or []) == []
+        assert (admin_client.table("site_content").select("key").execute().data or []) == []
+        assert (admin_client.table("site_settings").select("key").execute().data or []) == []
         for user in SEED_USERS:
             assert get_auth_user_id_by_email(admin_client, user["email"]) is None
     finally:
