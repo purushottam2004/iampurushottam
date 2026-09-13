@@ -4,6 +4,10 @@ from python_seeds.data._001_data_users import SEED_USER_ID
 
 SITE_OWNER_ID = SEED_USER_ID
 OWNER_SETTING_KEY = "owner_id"
+WHATSAPP_PHONE_KEY = "whatsapp_phone"
+CONTACT_EMAIL_KEY = "contact_email"
+WHATSAPP_PHONE = "15555550100"
+CONTACT_EMAIL = "hello@example.com"
 
 HOME_INTRO = "<p>A public notebook. Short pieces, and longer ones when they earn the space.</p>"
 

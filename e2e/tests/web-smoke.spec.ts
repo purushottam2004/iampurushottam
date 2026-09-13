@@ -15,6 +15,14 @@ test.describe("Web smoke", () => {
     await expect(page.getByRole("link", { name: "Writing" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
     await expect(page).not.toHaveURL(/\/login/);
+    await expect(page.getByRole("link", { name: "Chat on WhatsApp" })).toHaveAttribute(
+      "href",
+      "https://wa.me/15555550100"
+    );
+    await expect(page.getByRole("link", { name: "Send email" })).toHaveAttribute(
+      "href",
+      "mailto:hello@example.com"
+    );
   });
 
   test("should show published writing and hide drafts", async ({ page }) => {

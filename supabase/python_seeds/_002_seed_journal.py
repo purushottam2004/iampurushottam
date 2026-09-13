@@ -19,10 +19,14 @@ def seed_journal():
     print("Seeding journal content...\n")
 
     supabase.table("site_settings").upsert(
-        {"key": journal_data.OWNER_SETTING_KEY, "value": journal_data.SITE_OWNER_ID},
+        [
+            {"key": journal_data.OWNER_SETTING_KEY, "value": journal_data.SITE_OWNER_ID},
+            {"key": journal_data.WHATSAPP_PHONE_KEY, "value": journal_data.WHATSAPP_PHONE},
+            {"key": journal_data.CONTACT_EMAIL_KEY, "value": journal_data.CONTACT_EMAIL},
+        ],
         on_conflict="key",
     ).execute()
-    print("  Upserted site_settings owner_id")
+    print("  Upserted site_settings owner_id, whatsapp_phone, contact_email")
 
     content_rows = [
         {"key": "home_intro", "body": journal_data.HOME_INTRO},

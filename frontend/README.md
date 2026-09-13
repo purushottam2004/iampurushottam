@@ -2,7 +2,7 @@
 
 pnpm monorepo with shared packages and Vite React apps under `apps/`.
 
-`web` is the public journal (Home / About / Writing). Intro, about, and post bodies are HTML.
+`web` is the public journal (Home / About / Writing). Intro, about, and post bodies are HTML. Floating WhatsApp and mail buttons read `whatsapp_phone` and `contact_email` from `site_settings`.
 
 ## Setup
 

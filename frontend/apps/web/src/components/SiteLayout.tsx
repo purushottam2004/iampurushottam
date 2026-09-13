@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ContactFabs } from './ContactFabs'
 import { SiteFooter } from './SiteFooter'
 import { SiteHeader } from './SiteHeader'
 
@@ -8,6 +9,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <SiteHeader />
       <div className="site-column">{children}</div>
       <SiteFooter />
+      <ContactFabs />
     </div>
   )
 }

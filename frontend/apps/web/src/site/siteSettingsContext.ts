@@ -1,7 +1,7 @@
 import { createContext } from 'react'
+import type { SiteSettings } from '../lib/settings'
 
-export type SiteSettingsContextValue = {
-  ownerId: string | null
+export type SiteSettingsContextValue = SiteSettings & {
   loading: boolean
 }
 

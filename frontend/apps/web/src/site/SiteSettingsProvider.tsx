@@ -1,20 +1,20 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
-import { getSiteOwnerId } from '../lib/settings'
+import { EMPTY_SETTINGS, getSiteSettings, type SiteSettings } from '../lib/settings'
 import { SiteSettingsContext, type SiteSettingsContextValue } from './siteSettingsContext'
 
 export function SiteSettingsProvider({ children }: { children: ReactNode }) {
-  const [ownerId, setOwnerId] = useState<string | null>(null)
+  const [settings, setSettings] = useState<SiteSettings>(EMPTY_SETTINGS)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     let mounted = true
 
-    void getSiteOwnerId()
-      .then((id) => {
-        if (mounted) setOwnerId(id)
+    void getSiteSettings()
+      .then((next) => {
+        if (mounted) setSettings(next)
       })
       .catch(() => {
-        if (mounted) setOwnerId(null)
+        if (mounted) setSettings(EMPTY_SETTINGS)
       })
       .finally(() => {
         if (mounted) setLoading(false)
@@ -26,8 +26,8 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const value = useMemo<SiteSettingsContextValue>(
-    () => ({ ownerId, loading }),
-    [ownerId, loading],
+    () => ({ ...settings, loading }),
+    [settings, loading],
   )
 
   return <SiteSettingsContext.Provider value={value}>{children}</SiteSettingsContext.Provider>

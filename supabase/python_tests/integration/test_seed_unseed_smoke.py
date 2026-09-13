@@ -11,9 +11,13 @@ import pytest
 from python_seeds.client import get_auth_user_id_by_email
 from python_seeds.data._001_data_users import SEED_USERS
 from python_seeds.data._002_data_journal import (
+    CONTACT_EMAIL,
+    CONTACT_EMAIL_KEY,
     OWNER_SETTING_KEY,
     POSTS,
     SITE_OWNER_ID,
+    WHATSAPP_PHONE,
+    WHATSAPP_PHONE_KEY,
     published_slugs,
 )
 from python_tests.integration.conftest import run_script
@@ -42,12 +46,15 @@ def test_seed_is_idempotent_then_unseed_clears_users(admin_client):
     settings = (
         admin_client.table("site_settings")
         .select("key, value")
-        .eq("key", OWNER_SETTING_KEY)
         .execute()
         .data
         or []
     )
-    assert settings == [{"key": OWNER_SETTING_KEY, "value": SITE_OWNER_ID}]
+    assert {row["key"]: row["value"] for row in settings} == {
+        OWNER_SETTING_KEY: SITE_OWNER_ID,
+        WHATSAPP_PHONE_KEY: WHATSAPP_PHONE,
+        CONTACT_EMAIL_KEY: CONTACT_EMAIL,
+    }
 
     first_ids = {}
     for user in SEED_USERS:

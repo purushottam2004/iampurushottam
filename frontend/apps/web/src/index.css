@@ -391,6 +391,56 @@ label {
   border: 0;
 }
 
+.contact-fabs {
+  position: fixed;
+  right: 1.15rem;
+  bottom: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  z-index: 15;
+}
+
+.contact-fab {
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(28, 25, 22, 0.16);
+}
+
+.contact-fab:hover {
+  color: inherit;
+}
+
+.contact-fab svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.contact-fab-whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+
+.contact-fab-whatsapp:hover {
+  background: #1ebe5d;
+  color: #fff;
+}
+
+.contact-fab-mail {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.contact-fab-mail:hover {
+  background: #2c2723;
+  color: var(--paper);
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
