@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ContentEditor } from '../components/ContentEditor'
-import { MarkdownBody } from '../components/MarkdownBody'
+import { HtmlBody } from '../components/HtmlBody'
 import { getSiteContent, saveSiteContent } from '../lib/content'
 import { useIsOwner } from '../site/useIsOwner'
 
@@ -35,7 +35,7 @@ export function AboutPage() {
       {loading && <p className="quiet">Loading…</p>}
       {error && <p className="error">{error}</p>}
       {!loading && !body && !owner && <p className="quiet">Nothing here yet.</p>}
-      <MarkdownBody source={body} />
+      <HtmlBody source={body} />
       {owner && (
         <ContentEditor
           value={body}

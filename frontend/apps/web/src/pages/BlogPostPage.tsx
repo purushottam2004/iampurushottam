@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { MarkdownBody } from '../components/MarkdownBody'
+import { HtmlBody } from '../components/HtmlBody'
 import { formatPostDate } from '../lib/dates'
 import { deletePost, getPostBySlug, updatePost, type Post } from '../lib/posts'
 import { useIsOwner } from '../site/useIsOwner'
@@ -120,12 +120,15 @@ export function BlogPostPage() {
       </p>
       {error && <p className="error">{error}</p>}
       {editing ? (
-        <label className="field">
-          Body
-          <textarea value={body} onChange={(event) => setBody(event.target.value)} rows={16} />
-        </label>
+        <>
+          <label className="field">
+            Body (HTML)
+            <textarea value={body} onChange={(event) => setBody(event.target.value)} rows={16} />
+          </label>
+          <p className="quiet field-hint">HTML is rendered on the page.</p>
+        </>
       ) : (
-        <MarkdownBody source={post.body} />
+        <HtmlBody source={post.body} />
       )}
       {owner && (
         <p className="page-actions">

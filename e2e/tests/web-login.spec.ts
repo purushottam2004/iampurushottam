@@ -49,4 +49,25 @@ test.describe("Web login", () => {
     await page.getByRole("link", { name: "Writing" }).click();
     await expect(page.getByRole("link", { name: "Desk notes" })).toBeVisible();
   });
+
+  test("should render HTML in the home intro", async ({ page }) => {
+    const { email, password } = ownerUserCredentials();
+    const marker = `HTML intro ${Date.now()}`;
+
+    await loginViaModal(page, email, password);
+    await page.getByRole("button", { name: "Edit intro" }).click();
+    const editor = page.getByLabel("Edit intro");
+    const previous = await editor.inputValue();
+
+    try {
+      await editor.fill(`<h2>${marker}</h2>`);
+      await page.getByRole("button", { name: "Save" }).click();
+      await expect(page.getByRole("heading", { name: marker })).toBeVisible();
+    } finally {
+      await page.getByRole("button", { name: "Edit intro" }).click();
+      await page.getByLabel("Edit intro").fill(previous);
+      await page.getByRole("button", { name: "Save" }).click();
+      await expect(page.getByRole("button", { name: "Edit intro" })).toBeVisible();
+    }
+  });
 });

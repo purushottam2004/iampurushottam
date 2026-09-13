@@ -2,7 +2,7 @@
 
 pnpm monorepo with shared packages and Vite React apps under `apps/`.
 
-`web` is the public journal (Home / About / Writing).
+`web` is the public journal (Home / About / Writing). Intro, about, and post bodies are HTML.
 
 ## Setup
 

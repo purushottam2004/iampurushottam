@@ -11,7 +11,7 @@ Credentials: [`tests/helpers/auth.ts`](./tests/helpers/auth.ts) (defaults match 
 | File | What it covers |
 | --- | --- |
 | [`tests/web-smoke.spec.ts`](./tests/web-smoke.spec.ts) | Public home loads; published posts show; drafts stay hidden; About and a post page render. |
-| [`tests/web-login.spec.ts`](./tests/web-login.spec.ts) | Header login modal; wrong password stays open; `test@example.com` has no edit chrome; owner sees New / drafts. |
+| [`tests/web-login.spec.ts`](./tests/web-login.spec.ts) | Header login modal; wrong password stays open; `test@example.com` has no edit chrome; owner sees New / drafts; intro HTML renders. |
 
 ## Browser check (`npm run test:browser`)
 

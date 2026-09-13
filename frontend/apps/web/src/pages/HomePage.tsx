@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ContentEditor } from '../components/ContentEditor'
+import { HtmlBody } from '../components/HtmlBody'
 import { PostList } from '../components/PostList'
 import { getSiteContent, saveSiteContent } from '../lib/content'
 import { listPosts, type Post } from '../lib/posts'
@@ -42,12 +43,12 @@ export function HomePage() {
   return (
     <main>
       <h1 className="lead-heading">Writing</h1>
-      {intro && <p className="intro">{intro}</p>}
+      {intro && <HtmlBody source={intro} className="intro" />}
       {owner && (
         <ContentEditor
           value={intro}
           label="Edit intro"
-          rows={3}
+          rows={8}
           onSave={async (next) => {
             await saveSiteContent('home_intro', next)
             setIntro(next)

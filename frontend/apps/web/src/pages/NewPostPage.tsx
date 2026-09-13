@@ -57,9 +57,10 @@ export function NewPostPage() {
           />
         </label>
         <label className="field">
-          Body
+          Body (HTML)
           <textarea value={body} onChange={(event) => setBody(event.target.value)} required />
         </label>
+        <p className="quiet field-hint">HTML is rendered on the page.</p>
         <label className="field" style={{ flexDirection: 'row', alignItems: 'center' }}>
           <input type="checkbox" checked={published} onChange={(event) => setPublished(event.target.checked)} />
           Publish now

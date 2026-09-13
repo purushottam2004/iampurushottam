@@ -161,11 +161,6 @@ label {
   margin: 0 0 0.85rem;
 }
 
-.intro {
-  margin: 0 0 1.75rem;
-  color: var(--ink);
-}
-
 .page-title {
   font-size: 2rem;
   margin: 0 0 0.5rem;
@@ -275,44 +270,64 @@ label {
   line-height: 1.55;
 }
 
-.markdown > *:first-child {
+.html-body.intro {
+  margin: 0 0 1.75rem;
+}
+
+.html-body > *:first-child {
   margin-top: 0;
 }
 
-.markdown > *:last-child {
+.html-body > *:last-child {
   margin-bottom: 0;
 }
 
-.markdown p,
-.markdown ul,
-.markdown ol,
-.markdown blockquote {
+.html-body p,
+.html-body ul,
+.html-body ol,
+.html-body blockquote {
   margin: 0 0 1.1rem;
 }
 
-.markdown h1,
-.markdown h2,
-.markdown h3 {
+.html-body ul,
+.html-body ol {
+  padding-left: 1.25rem;
+}
+
+.html-body h1,
+.html-body h2,
+.html-body h3 {
   margin: 1.6rem 0 0.6rem;
 }
 
-.markdown a {
+.html-body a {
   color: var(--accent);
 }
 
-.markdown code {
+.html-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.html-body code {
   font-family: ui-monospace, Consolas, monospace;
   font-size: 0.9em;
 }
 
-.markdown pre {
+.html-body pre {
   padding: 0.85rem 1rem;
   border: 1px solid var(--rule);
   overflow: auto;
 }
 
-.markdown pre code {
+.html-body pre code {
   font-size: 0.85rem;
+}
+
+.field-hint {
+  margin: -0.55rem 0 1rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
 }
 
 .modal-backdrop {
