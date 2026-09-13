@@ -1,0 +1,20 @@
+# Supabase
+.branches
+.temp
+
+# dotenvx
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Virtual environment
+.venv/
+venv/
+
+# cache files
+__pycache__/
+
+# Local-only python seed scripts (auto-discovered by seed.py; never commit)
+# Name them: python_seeds/_local_seed_<anything>.py
+python_seeds/_local_seed_*.py
