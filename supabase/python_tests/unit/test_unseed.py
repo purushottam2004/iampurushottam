@@ -10,12 +10,13 @@ import unseed
 
 
 def test_resolve_table_name_aliases():
-    names = ["posts", "site_content", "site_settings", "users"]
+    names = ["posts", "site_content", "site_settings", "photos", "users"]
     assert unseed.resolve_table_name("users", names) == "users"
     assert unseed.resolve_table_name("public.users", names) == "users"
     assert unseed.resolve_table_name(" USERS ", names) == "users"
     assert unseed.resolve_table_name("posts", names) == "posts"
     assert unseed.resolve_table_name("public.site_content", names) == "site_content"
+    assert unseed.resolve_table_name("photos", names) == "photos"
 
 
 def test_resolve_table_name_unknown_exits_2():
@@ -44,7 +45,7 @@ def test_main_rejects_all_and_table_name_together(monkeypatch):
 
 def test_make_steps_includes_journal_then_users():
     names = [name for name, _fn in unseed.make_steps(MagicMock())]
-    assert names == ["posts", "site_content", "site_settings", "users"]
+    assert names == ["posts", "site_content", "site_settings", "photos", "users"]
 
 
 def test_wipe_posts_and_site_content():
@@ -75,6 +76,15 @@ def test_wipe_posts_and_site_content():
     posts_table.delete.return_value.neq.assert_called_with("slug", "")
     content_table.delete.return_value.neq.assert_called_with("key", "")
     settings_table.delete.return_value.neq.assert_called_with("key", "")
+
+
+def test_wipe_photos_removes_seed_object():
+    supabase = MagicMock()
+    unseed.wipe_photos(supabase)
+    supabase.storage.from_.assert_called_with("photos")
+    supabase.storage.from_.return_value.remove.assert_called_with(
+        ["intro/waterfall_short_high_smile.jpg"]
+    )
 
 
 def test_run_step_reraises():

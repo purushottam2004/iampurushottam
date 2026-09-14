@@ -296,6 +296,14 @@ label {
   margin: 0 0 1.75rem;
 }
 
+.html-body.intro img {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
 .html-body > *:first-child {
   margin-top: 0;
 }

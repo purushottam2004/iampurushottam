@@ -23,6 +23,13 @@ test.describe("Web smoke", () => {
       "href",
       "mailto:hello@example.com"
     );
+    await expect(page.getByText(/Welcome, glad you're here/i)).toBeVisible();
+    const introPhoto = page.getByRole("img", { name: "Purushottam" });
+    await expect(introPhoto).toBeVisible();
+    await expect(introPhoto).toHaveAttribute(
+      "src",
+      /\/storage\/v1\/object\/public\/photos\/intro\/waterfall_short_high_smile\.jpg/
+    );
   });
 
   test("should show published writing and hide drafts", async ({ page }) => {

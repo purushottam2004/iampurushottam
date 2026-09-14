@@ -90,11 +90,23 @@ def wipe_site_settings(supabase) -> None:
     print_success(f"public.site_settings: wiped {total} row(s)")
 
 
+def wipe_photos(supabase) -> None:
+    from python_seeds.data._002_data_journal import (
+        INTRO_PHOTO_BUCKET,
+        INTRO_PHOTO_OBJECT_PATH,
+    )
+
+    print_info(f"Removing seed object {INTRO_PHOTO_BUCKET}/{INTRO_PHOTO_OBJECT_PATH}")
+    supabase.storage.from_(INTRO_PHOTO_BUCKET).remove([INTRO_PHOTO_OBJECT_PATH])
+    print_success("photos: removed seed object")
+
+
 def make_steps(supabase):
     return (
         ("posts", lambda: wipe_posts(supabase)),
         ("site_content", lambda: wipe_site_content(supabase)),
         ("site_settings", lambda: wipe_site_settings(supabase)),
+        ("photos", lambda: wipe_photos(supabase)),
         ("users", lambda: wipe_users(supabase)),
     )
 
@@ -108,6 +120,7 @@ TABLE_ALIASES = {
     "public.site_content": "site_content",
     "site_settings": "site_settings",
     "public.site_settings": "site_settings",
+    "photos": "photos",
 }
 
 

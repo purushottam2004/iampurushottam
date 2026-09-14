@@ -13,6 +13,29 @@ from python_seeds.client import SUPABASE_URL, get_supabase_admin_client
 from python_seeds.data import journal as journal_data
 
 
+def _upload_intro_photo(supabase) -> str:
+    photo = journal_data.INTRO_PHOTO_FILE
+    if not photo.is_file():
+        raise FileNotFoundError(f"Intro photo missing: {photo}")
+
+    supabase.storage.from_(journal_data.INTRO_PHOTO_BUCKET).upload(
+        journal_data.INTRO_PHOTO_OBJECT_PATH,
+        photo,
+        {
+            "content-type": journal_data.INTRO_PHOTO_CONTENT_TYPE,
+            "upsert": "true",
+        },
+    )
+    public_url = supabase.storage.from_(journal_data.INTRO_PHOTO_BUCKET).get_public_url(
+        journal_data.INTRO_PHOTO_OBJECT_PATH
+    )
+    print(
+        f"  Uploaded {photo.name} → "
+        f"{journal_data.INTRO_PHOTO_BUCKET}/{journal_data.INTRO_PHOTO_OBJECT_PATH}"
+    )
+    return public_url
+
+
 def seed_journal():
     supabase = get_supabase_admin_client()
     print(f"Connecting to Supabase at: {SUPABASE_URL}")
@@ -28,8 +51,9 @@ def seed_journal():
     ).execute()
     print("  Upserted site_settings owner_id, whatsapp_phone, contact_email")
 
+    intro_photo_url = _upload_intro_photo(supabase)
     content_rows = [
-        {"key": "home_intro", "body": journal_data.HOME_INTRO},
+        {"key": "home_intro", "body": journal_data.home_intro_body(intro_photo_url)},
         {"key": "about", "body": journal_data.ABOUT_BODY},
     ]
     supabase.table("site_content").upsert(content_rows, on_conflict="key").execute()

@@ -13,6 +13,8 @@ from python_seeds.data._001_data_users import SEED_USERS
 from python_seeds.data._002_data_journal import (
     CONTACT_EMAIL,
     CONTACT_EMAIL_KEY,
+    INTRO_PHOTO_BUCKET,
+    INTRO_PHOTO_OBJECT_PATH,
     OWNER_SETTING_KEY,
     POSTS,
     SITE_OWNER_ID,
@@ -55,6 +57,20 @@ def test_seed_is_idempotent_then_unseed_clears_users(admin_client):
         WHATSAPP_PHONE_KEY: WHATSAPP_PHONE,
         CONTACT_EMAIL_KEY: CONTACT_EMAIL,
     }
+    intro = (
+        admin_client.table("site_content")
+        .select("body")
+        .eq("key", "home_intro")
+        .single()
+        .execute()
+        .data
+    )
+    assert intro and "Welcome, glad you're here." in intro["body"]
+    assert f"/storage/v1/object/public/{INTRO_PHOTO_BUCKET}/{INTRO_PHOTO_OBJECT_PATH}" in intro[
+        "body"
+    ]
+    listed = admin_client.storage.from_(INTRO_PHOTO_BUCKET).list("intro")
+    assert any(item.get("name") == "waterfall_short_high_smile.jpg" for item in listed)
 
     first_ids = {}
     for user in SEED_USERS:
@@ -75,6 +91,10 @@ def test_seed_is_idempotent_then_unseed_clears_users(admin_client):
         assert (admin_client.table("posts").select("id").execute().data or []) == []
         assert (admin_client.table("site_content").select("key").execute().data or []) == []
         assert (admin_client.table("site_settings").select("key").execute().data or []) == []
+        listed_after = admin_client.storage.from_(INTRO_PHOTO_BUCKET).list("intro")
+        assert not any(
+            item.get("name") == "waterfall_short_high_smile.jpg" for item in listed_after
+        )
         for user in SEED_USERS:
             assert get_auth_user_id_by_email(admin_client, user["email"]) is None
     finally:

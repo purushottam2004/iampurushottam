@@ -6,12 +6,16 @@ from python_seeds.data._002_data_journal import (
     CONTACT_EMAIL,
     CONTACT_EMAIL_KEY,
     HOME_INTRO,
+    INTRO_PHOTO_FILE,
+    INTRO_PHOTO_OBJECT_PATH,
+    INTRO_PHOTO_URL_PLACEHOLDER,
     OWNER_SETTING_KEY,
     POSTS,
     SITE_OWNER_ID,
     WHATSAPP_PHONE,
     WHATSAPP_PHONE_KEY,
     draft_slugs,
+    home_intro_body,
     published_slugs,
 )
 
@@ -29,6 +33,18 @@ def test_owner_matches_seed_user():
 def test_site_copy_is_present():
     assert HOME_INTRO
     assert ABOUT_BODY
+    assert "Welcome, glad you're here." in HOME_INTRO
+    assert INTRO_PHOTO_URL_PLACEHOLDER in HOME_INTRO
+    assert INTRO_PHOTO_OBJECT_PATH not in HOME_INTRO
+    assert INTRO_PHOTO_FILE.is_file()
+
+
+def test_home_intro_body_injects_photo_url():
+    url = "http://127.0.0.1:54321/storage/v1/object/public/photos/intro/waterfall_short_high_smile.jpg"
+    body = home_intro_body(url)
+    assert url in body
+    assert INTRO_PHOTO_URL_PLACEHOLDER not in body
+    assert 'alt="Purushottam"' in body
 
 
 def test_sample_posts_include_published_and_draft():

@@ -1,5 +1,7 @@
 """Sample journal copy seeded by _002_seed_journal.py."""
 
+from pathlib import Path
+
 from python_seeds.data._001_data_users import SEED_USER_ID
 
 SITE_OWNER_ID = SEED_USER_ID
@@ -9,7 +11,31 @@ CONTACT_EMAIL_KEY = "contact_email"
 WHATSAPP_PHONE = "15555550100"
 CONTACT_EMAIL = "hello@example.com"
 
-HOME_INTRO = "<p>A public notebook. Short pieces, and longer ones when they earn the space.</p>"
+INTRO_PHOTO_BUCKET = "photos"
+INTRO_PHOTO_OBJECT_PATH = "intro/waterfall_short_high_smile.jpg"
+INTRO_PHOTO_CONTENT_TYPE = "image/jpeg"
+INTRO_PHOTO_FILE = (
+    Path(__file__).resolve().parent / "photos" / "waterfall_short_high_smile.jpg"
+)
+INTRO_PHOTO_URL_PLACEHOLDER = "__INTRO_PHOTO_URL__"
+
+HOME_INTRO = """<p><strong>Welcome, glad you're here.</strong></p>
+<div style="display:flex; flex-wrap:wrap; gap:1.75rem; align-items:flex-start; margin:1.5rem 0;">
+  <div style="flex:0 0 180px;">
+    <img src="__INTRO_PHOTO_URL__" alt="Purushottam" style="width:100%; max-width:180px; height:auto; border-radius:8px; display:block;" />
+  </div>
+  <div style="flex:1; min-width:240px;">
+    <p style="margin:0;">I'm Purushottam — an AI agent engineer at Neuron7.ai, building an edtech tool, and working, slowly and deliberately, toward an independent research institution for the questions science hasn't fully claimed yet: reasoning, cognition, consciousness.</p>
+  </div>
+</div>
+<p>This site is where I write in public — half-formed ideas, blogs, my projects, and things I'm still figuring out.</p>
+<p>If something here resonates, say hello — you'll find me on WhatsApp or email just below.</p>
+"""
+
+
+def home_intro_body(photo_url: str) -> str:
+    return HOME_INTRO.replace(INTRO_PHOTO_URL_PLACEHOLDER, photo_url)
+
 
 ABOUT_BODY = """<p>I write to keep the thinking honest — software, making things, and the long way around.</p>
 <p>This site is the public shelf. If you are reading it, you are welcome to stay as long as a page is useful.</p>
