@@ -68,6 +68,7 @@ def seed_journal():
             "excerpt": post["excerpt"],
             "published": post["published"],
             "published_at": post["published_at"],
+            "kind": post.get("kind", "writing"),
         }
         for post in journal_data.POSTS
     ]

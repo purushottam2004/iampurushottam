@@ -1,4 +1,5 @@
 import { supabase } from './supabaseClient'
+import type { PostKind } from '../site/sections'
 
 export type Post = {
   id: string
@@ -10,6 +11,7 @@ export type Post = {
   published_at: string | null
   created_at: string
   updated_at: string
+  kind: PostKind
 }
 
 export type PostDraft = {
@@ -17,6 +19,7 @@ export type PostDraft = {
   title: string
   body: string
   published: boolean
+  kind: PostKind
 }
 
 export function slugFromTitle(title: string): string {
@@ -39,10 +42,11 @@ function throwIfError(error: { message: string } | null): void {
   }
 }
 
-export async function listPosts(): Promise<Post[]> {
+export async function listPosts(kind: PostKind): Promise<Post[]> {
   const { data, error } = await supabase
     .from('posts')
     .select('*')
+    .eq('kind', kind)
     .order('published_at', { ascending: false, nullsFirst: false })
     .order('created_at', { ascending: false })
 
@@ -50,8 +54,13 @@ export async function listPosts(): Promise<Post[]> {
   return (data ?? []) as Post[]
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | null> {
-  const { data, error } = await supabase.from('posts').select('*').eq('slug', slug).maybeSingle()
+export async function getPostBySlug(slug: string, kind: PostKind): Promise<Post | null> {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('slug', slug)
+    .eq('kind', kind)
+    .maybeSingle()
   throwIfError(error)
   return (data as Post | null) ?? null
 }
@@ -67,6 +76,7 @@ export async function createPost(draft: PostDraft): Promise<Post> {
       excerpt: excerptFromBody(draft.body),
       published: draft.published,
       published_at: draft.published ? now : null,
+      kind: draft.kind,
     })
     .select('*')
     .single()

@@ -48,11 +48,17 @@ def test_home_intro_body_injects_photo_url():
 
 
 def test_sample_posts_include_published_and_draft():
-    assert len(POSTS) == 3
-    assert published_slugs() == ["why-this-site-exists", "a-short-note-on-tools"]
+    assert len(POSTS) == 4
+    assert published_slugs() == [
+        "why-this-site-exists",
+        "a-short-note-on-tools",
+        "this-site",
+    ]
     assert draft_slugs() == ["desk-notes"]
+    assert {post["kind"] for post in POSTS} == {"writing", "project"}
     for post in POSTS:
         assert post["id"].startswith("00000000-0000-0000-0001-")
         assert post["slug"]
         assert post["title"]
         assert post["body"]
+        assert post["kind"] in {"writing", "project"}

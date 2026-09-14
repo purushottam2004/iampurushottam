@@ -13,6 +13,7 @@ test.describe("Web smoke", () => {
     await expect(page.getByRole("link", { name: "Purushottam" }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: "About" })).toBeVisible();
     await expect(page.getByRole("link", { name: "Writing" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Projects" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
     await expect(page).not.toHaveURL(/\/login/);
     await expect(page.getByRole("link", { name: "Chat on WhatsApp" })).toHaveAttribute(
@@ -42,6 +43,9 @@ test.describe("Web smoke", () => {
       page.getByRole("link", { name: "A short note on tools" })
     ).toBeVisible();
     await expect(page.getByRole("link", { name: "Desk notes" })).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Projects" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "This site", exact: true })).toBeVisible();
+    await expect(page.getByText("Nothing published yet.")).toHaveCount(0);
   });
 
   test("should open about and a published post", async ({ page }) => {
@@ -54,5 +58,13 @@ test.describe("Web smoke", () => {
       page.getByRole("heading", { name: "Why this site exists" })
     ).toBeVisible();
     await expect(page.getByText(/I meant it/i)).toBeVisible();
+
+    await page.goto("/projects");
+    await expect(page.getByRole("heading", { name: "Projects" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "This site", exact: true })).toBeVisible();
+    await page.getByRole("link", { name: "This site", exact: true }).click();
+    await expect(page).toHaveURL(/\/projects\/this-site/);
+    await expect(page.getByRole("heading", { name: "This site", exact: true })).toBeVisible();
+    await expect(page.getByText(/the shelf it sits on/i)).toBeVisible();
   });
 });

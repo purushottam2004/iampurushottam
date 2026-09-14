@@ -161,6 +161,10 @@ label {
   margin: 0 0 0.85rem;
 }
 
+main > .lead-heading:not(:first-child) {
+  margin-top: 2.25rem;
+}
+
 .page-title {
   font-size: 2rem;
   margin: 0 0 0.5rem;

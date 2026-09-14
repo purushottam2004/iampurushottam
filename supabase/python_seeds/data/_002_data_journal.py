@@ -49,6 +49,7 @@ POSTS = [
         "excerpt": "A small public notebook, not a product.",
         "published": True,
         "published_at": "2026-09-12T10:00:00+00:00",
+        "kind": "writing",
         "body": """<p>This is a place to put sentences I am willing to keep.</p>
 <p>I do not need a platform for that. I need a page, a date, and the discipline to publish when the thought is finished — not when it is impressive.</p>
 <p>If a piece is here, I meant it.</p>
@@ -61,6 +62,7 @@ POSTS = [
         "excerpt": "Use fewer tools. Finish the paragraph.",
         "published": True,
         "published_at": "2026-08-20T10:00:00+00:00",
+        "kind": "writing",
         "body": """<p>Tools multiply when the work is unclear.</p>
 <p>The useful ones disappear into the sentence. The rest ask to be configured. I keep a short list and I let the unused ones go.</p>
 <p>Writing still happens in the same place: a title, a body, a publish button.</p>
@@ -73,8 +75,21 @@ POSTS = [
         "excerpt": "An unpublished scrap.",
         "published": False,
         "published_at": None,
+        "kind": "writing",
         "body": """<p>This stays on the desk until it is ready.</p>
 <p>Visitors should not see it. I should.</p>
+""",
+    },
+    {
+        "id": "00000000-0000-0000-0001-000000000004",
+        "slug": "this-site",
+        "title": "This site",
+        "excerpt": "A public journal, built in the open.",
+        "published": True,
+        "published_at": "2026-09-14T10:00:00+00:00",
+        "kind": "project",
+        "body": """<p>This site is the project I am willing to keep shipping.</p>
+<p>Same tools as the writing: a title, a body, a publish button. The difference is only the shelf it sits on.</p>
 """,
     },
 ]

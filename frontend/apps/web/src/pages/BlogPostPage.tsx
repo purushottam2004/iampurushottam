@@ -3,9 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { HtmlBody } from '../components/HtmlBody'
 import { formatPostDate } from '../lib/dates'
 import { deletePost, getPostBySlug, updatePost, type Post } from '../lib/posts'
+import type { PostSection } from '../site/sections'
 import { useIsOwner } from '../site/useIsOwner'
 
-export function BlogPostPage() {
+export function BlogPostPage({ section }: { section: PostSection }) {
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
   const { isOwner: owner } = useIsOwner()
@@ -21,7 +22,7 @@ export function BlogPostPage() {
     if (!slug) return
     let mounted = true
 
-    void getPostBySlug(slug)
+    void getPostBySlug(slug, section.kind)
       .then((next) => {
         if (!mounted) return
         setPost(next)
@@ -40,7 +41,7 @@ export function BlogPostPage() {
     return () => {
       mounted = false
     }
-  }, [slug])
+  }, [slug, section.kind])
 
   async function handleSave() {
     if (!post) return
@@ -80,7 +81,7 @@ export function BlogPostPage() {
     setSaving(true)
     try {
       await deletePost(post.id)
-      navigate('/blog')
+      navigate(section.path)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not delete.')
       setSaving(false)

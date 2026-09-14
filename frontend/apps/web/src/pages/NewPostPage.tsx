@@ -1,9 +1,10 @@
 import { useState, type FormEvent } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { createPost, slugFromTitle } from '../lib/posts'
+import type { PostSection } from '../site/sections'
 import { useIsOwner } from '../site/useIsOwner'
 
-export function NewPostPage() {
+export function NewPostPage({ section }: { section: PostSection }) {
   const { isOwner: owner, loading } = useIsOwner()
   const navigate = useNavigate()
   const [title, setTitle] = useState('')
@@ -16,7 +17,7 @@ export function NewPostPage() {
   const resolvedSlug = slugTouched ? slug : slugFromTitle(title)
 
   if (!loading && !owner) {
-    return <Navigate to="/blog" replace />
+    return <Navigate to={section.path} replace />
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -29,8 +30,9 @@ export function NewPostPage() {
         slug: resolvedSlug.trim() || slugFromTitle(title),
         body,
         published,
+        kind: section.kind,
       })
-      navigate(`/blog/${post.slug}`)
+      navigate(`${section.path}/${post.slug}`)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not create this piece.')
       setSaving(false)
