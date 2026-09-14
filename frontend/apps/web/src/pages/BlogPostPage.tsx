@@ -126,7 +126,7 @@ export function BlogPostPage({ section }: { section: PostSection }) {
             Body (HTML)
             <textarea value={body} onChange={(event) => setBody(event.target.value)} rows={16} />
           </label>
-          <p className="quiet field-hint">Title and body HTML is rendered on the page.</p>
+          <p className="quiet field-hint">HTML is rendered as stored, including iframes.</p>
         </>
       ) : (
         <HtmlBody source={post.body} />

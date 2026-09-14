@@ -81,6 +81,29 @@ test.describe("Web login", () => {
     }
   });
 
+  test("should keep iframe tags in a post body", async ({ page }) => {
+    const { email, password } = ownerUserCredentials();
+    const src = "https://example.com/embed";
+
+    await loginViaModal(page, email, password);
+    await page.goto("/blog/why-this-site-exists");
+    await page.getByRole("button", { name: "Edit" }).click();
+    const bodyField = page.getByLabel("Body (HTML)");
+    const previous = await bodyField.inputValue();
+
+    try {
+      await bodyField.fill(`<p>Keep this.</p><iframe src="${src}" title="Owner embed"></iframe>`);
+      await page.getByRole("button", { name: "Save" }).click();
+      await expect(page.locator('iframe[title="Owner embed"]')).toHaveAttribute("src", src);
+    } finally {
+      await page.goto("/blog/why-this-site-exists");
+      await page.getByRole("button", { name: "Edit" }).click();
+      await page.getByLabel("Body (HTML)").fill(previous);
+      await page.getByRole("button", { name: "Save" }).click();
+      await expect(page.getByRole("heading", { name: "Why this site exists" })).toBeVisible();
+    }
+  });
+
   test("should render HTML in the home intro", async ({ page }) => {
     const { email, password } = ownerUserCredentials();
     const marker = `HTML intro ${Date.now()}`;

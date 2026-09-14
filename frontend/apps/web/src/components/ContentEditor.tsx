@@ -54,7 +54,7 @@ export function ContentEditor({ value, onSave, label = 'Edit', rows = 8 }: Conte
           spellCheck={false}
         />
       </label>
-      <p className="quiet field-hint">HTML is rendered on the page.</p>
+      <p className="quiet field-hint">HTML is rendered as stored, including iframes.</p>
       {error && <p className="error">{error}</p>}
       <p className="inline-actions">
         <button type="button" className="text-action" onClick={() => void handleSave()} disabled={saving}>

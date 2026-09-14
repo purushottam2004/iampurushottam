@@ -14,7 +14,6 @@
     "@repo/auth": "workspace:*",
     "@repo/ui": "workspace:*",
     "@supabase/supabase-js": "^2.110.8",
-    "dompurify": "^3.4.15",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1"

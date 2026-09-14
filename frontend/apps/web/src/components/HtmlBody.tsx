@@ -1,5 +1,4 @@
 import type { ElementType } from 'react'
-import { sanitizeHtml } from '../lib/html'
 
 export function HtmlMarkup({
   source,
@@ -10,12 +9,11 @@ export function HtmlMarkup({
   as?: ElementType
   className?: string
 }) {
-  const html = sanitizeHtml(source)
-  if (!html.trim()) {
+  if (!source.trim()) {
     return null
   }
 
-  return <Tag className={className} dangerouslySetInnerHTML={{ __html: html }} />
+  return <Tag className={className} dangerouslySetInnerHTML={{ __html: source }} />
 }
 
 export function HtmlBody({ source, className }: { source: string; className?: string }) {

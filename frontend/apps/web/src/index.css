@@ -356,9 +356,21 @@ main > .lead-heading:not(:first-child) {
   color: var(--accent);
 }
 
-.html-body img {
+.html-body img,
+.html-body video,
+.html-body iframe,
+.html-body embed,
+.html-body object {
   max-width: 100%;
+}
+
+.html-body img,
+.html-body video {
   height: auto;
+}
+
+.html-body iframe {
+  border: 0;
 }
 
 .html-body code {

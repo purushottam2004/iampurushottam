@@ -2,7 +2,7 @@
 
 pnpm monorepo with shared packages and Vite React apps under `apps/`.
 
-`web` is the public journal (Home / About / Writing / Projects). Intro, about, post titles, and post bodies are HTML. Floating WhatsApp, LinkedIn, and mail buttons read `whatsapp_phone`, `linkedin_url`, and `contact_email` from `site_settings`. Vercel SPA rewrites live in [`vercel.json`](../vercel.json) (and copies under `frontend/` / `apps/web/`) so `/about`, `/blog/...`, and `/projects/...` work on refresh.
+`web` is the public journal (Home / About / Writing / Projects). Intro, about, post titles, and post bodies are HTML rendered as stored (including iframes); only the site owner can write that HTML. Floating WhatsApp, LinkedIn, and mail buttons read `whatsapp_phone`, `linkedin_url`, and `contact_email` from `site_settings`. Vercel SPA rewrites live in [`vercel.json`](../vercel.json) (and copies under `frontend/` / `apps/web/`) so `/about`, `/blog/...`, and `/projects/...` work on refresh.
 
 ## Setup
 
