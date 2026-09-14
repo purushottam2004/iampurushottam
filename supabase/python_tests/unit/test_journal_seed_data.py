@@ -52,10 +52,13 @@ def test_sample_posts_include_published_and_draft():
     assert published_slugs() == [
         "why-this-site-exists",
         "a-short-note-on-tools",
-        "this-site",
+        "full-stack-web-template",
     ]
     assert draft_slugs() == ["desk-notes"]
     assert {post["kind"] for post in POSTS} == {"writing", "project"}
+    template = next(post for post in POSTS if post["slug"] == "full-stack-web-template")
+    assert template["kind"] == "project"
+    assert "https://github.com/purushottam2004/full-stack-web-template" in template["body"]
     for post in POSTS:
         assert post["id"].startswith("00000000-0000-0000-0001-")
         assert post["slug"]

@@ -82,14 +82,18 @@ POSTS = [
     },
     {
         "id": "00000000-0000-0000-0001-000000000004",
-        "slug": "this-site",
-        "title": "This site",
-        "excerpt": "A public journal, built in the open.",
+        "slug": "full-stack-web-template",
+        "title": "Full-stack web template",
+        "excerpt": "A starting stack so an idea can become something you can look at.",
         "published": True,
         "published_at": "2026-09-14T10:00:00+00:00",
         "kind": "project",
-        "body": """<p>This site is the project I am willing to keep shipping.</p>
-<p>Same tools as the writing: a title, a body, a publish button. The difference is only the shelf it sits on.</p>
+        "body": """<p>This journal is one instance of a public template I keep here:</p>
+<p><a href="https://github.com/purushottam2004/full-stack-web-template">github.com/purushottam2004/full-stack-web-template</a></p>
+<p>I made it because I kept rebuilding the same scaffolding. FastAPI, React and TypeScript, Supabase for Postgres and auth, Playwright for the browser — plus the docs and agent instructions so a coding assistant can work in the repo without guessing. Clone it, put an idea in, and there is a page to look at before the thought goes abstract again.</p>
+<p>That is the whole job: make repetitive prototyping cheap, and make converting an idea into a concrete visual fast. Not a product. A starting stack you can fork when you want to test something on a real screen.</p>
+<p>If that is useful, use it. Fork it. Open an issue or a pull request when something is missing, wrong, or could be kinder to the next person. I want this to get better from people who actually ship with it — including you.</p>
+<p><a href="https://github.com/purushottam2004/full-stack-web-template">Use the template on GitHub →</a></p>
 """,
     },
 ]

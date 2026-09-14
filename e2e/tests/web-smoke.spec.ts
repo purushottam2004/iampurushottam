@@ -44,7 +44,9 @@ test.describe("Web smoke", () => {
     ).toBeVisible();
     await expect(page.getByRole("link", { name: "Desk notes" })).toHaveCount(0);
     await expect(page.getByRole("heading", { name: "Projects" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "This site", exact: true })).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Full-stack web template" })
+    ).toBeVisible();
     await expect(page.getByText("Nothing published yet.")).toHaveCount(0);
   });
 
@@ -61,10 +63,20 @@ test.describe("Web smoke", () => {
 
     await page.goto("/projects");
     await expect(page.getByRole("heading", { name: "Projects" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "This site", exact: true })).toBeVisible();
-    await page.getByRole("link", { name: "This site", exact: true }).click();
-    await expect(page).toHaveURL(/\/projects\/this-site/);
-    await expect(page.getByRole("heading", { name: "This site", exact: true })).toBeVisible();
-    await expect(page.getByText(/the shelf it sits on/i)).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Full-stack web template" })
+    ).toBeVisible();
+    await page.getByRole("link", { name: "Full-stack web template" }).click();
+    await expect(page).toHaveURL(/\/projects\/full-stack-web-template/);
+    await expect(
+      page.getByRole("heading", { name: "Full-stack web template" })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "github.com/purushottam2004/full-stack-web-template" })
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/purushottam2004/full-stack-web-template"
+    );
+    await expect(page.getByText(/fork it/i)).toBeVisible();
   });
 });
