@@ -6,3 +6,7 @@ export function sanitizeHtml(source: string): string {
     ADD_ATTR: ['style'],
   })
 }
+
+export function plainTextFromHtml(source: string): string {
+  return source.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+}

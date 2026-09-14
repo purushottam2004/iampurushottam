@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { formatPostDate } from '../lib/dates'
+import { sanitizeHtml } from '../lib/html'
 import type { Post } from '../lib/posts'
 
 export function PostList({ posts, basePath }: { posts: Post[]; basePath: string }) {
@@ -12,7 +13,11 @@ export function PostList({ posts, basePath }: { posts: Post[]; basePath: string 
       {posts.map((post) => (
         <li key={post.id}>
           <time dateTime={post.published_at ?? undefined}>{formatPostDate(post.published_at)}</time>
-          <Link to={`${basePath}/${post.slug}`}>{post.title}</Link>
+          <Link
+            className="html-title"
+            to={`${basePath}/${post.slug}`}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.title) }}
+          />
           {!post.published && <span className="draft-mark">Draft</span>}
         </li>
       ))}

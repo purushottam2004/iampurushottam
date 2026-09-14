@@ -44,7 +44,7 @@ export function NewPostPage({ section }: { section: PostSection }) {
       <h1 className="page-title">New post</h1>
       <form onSubmit={(event) => void handleSubmit(event)}>
         <label className="field">
-          Title
+          Title (HTML)
           <input value={title} onChange={(event) => setTitle(event.target.value)} required />
         </label>
         <label className="field">
@@ -62,7 +62,7 @@ export function NewPostPage({ section }: { section: PostSection }) {
           Body (HTML)
           <textarea value={body} onChange={(event) => setBody(event.target.value)} required />
         </label>
-        <p className="quiet field-hint">HTML is rendered on the page.</p>
+        <p className="quiet field-hint">Title and body HTML is rendered on the page.</p>
         {error && <p className="error">{error}</p>}
         <div className="page-actions">
           <label className="field-check">

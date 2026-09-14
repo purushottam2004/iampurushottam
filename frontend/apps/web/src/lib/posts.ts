@@ -1,5 +1,6 @@
-import { supabase } from './supabaseClient'
 import type { PostKind } from '../site/sections'
+import { plainTextFromHtml } from './html'
+import { supabase } from './supabaseClient'
 
 export type Post = {
   id: string
@@ -23,9 +24,8 @@ export type PostDraft = {
 }
 
 export function slugFromTitle(title: string): string {
-  return title
+  return plainTextFromHtml(title)
     .toLowerCase()
-    .trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
 }

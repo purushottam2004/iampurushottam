@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { HtmlBody } from '../components/HtmlBody'
+import { HtmlBody, HtmlMarkup } from '../components/HtmlBody'
 import { formatPostDate } from '../lib/dates'
 import { deletePost, getPostBySlug, updatePost, type Post } from '../lib/posts'
 import type { PostSection } from '../site/sections'
@@ -109,11 +109,11 @@ export function BlogPostPage({ section }: { section: PostSection }) {
     <main>
       {editing ? (
         <label className="field">
-          Title
+          Title (HTML)
           <input value={title} onChange={(event) => setTitle(event.target.value)} />
         </label>
       ) : (
-        <h1 className="page-title">{post.title}</h1>
+        <HtmlMarkup as="h1" className="page-title html-title" source={post.title} />
       )}
       <p className="post-meta">
         {formatPostDate(post.published_at)}
@@ -126,7 +126,7 @@ export function BlogPostPage({ section }: { section: PostSection }) {
             Body (HTML)
             <textarea value={body} onChange={(event) => setBody(event.target.value)} rows={16} />
           </label>
-          <p className="quiet field-hint">HTML is rendered on the page.</p>
+          <p className="quiet field-hint">Title and body HTML is rendered on the page.</p>
         </>
       ) : (
         <HtmlBody source={post.body} />

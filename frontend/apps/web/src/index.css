@@ -170,6 +170,24 @@ main > .lead-heading:not(:first-child) {
   margin: 0 0 0.5rem;
 }
 
+.html-title p,
+.html-title h1,
+.html-title h2,
+.html-title h3 {
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  line-height: inherit;
+}
+
+.post-list a.html-title p,
+.post-list a.html-title h1,
+.post-list a.html-title h2,
+.post-list a.html-title h3 {
+  display: inline;
+}
+
 .post-meta {
   font-family: var(--sans);
   font-size: 0.85rem;

@@ -50,6 +50,37 @@ test.describe("Web login", () => {
     await expect(page.getByRole("link", { name: "Desk notes" })).toBeVisible();
   });
 
+  test("should render HTML in a post title on the list and the piece", async ({
+    page,
+  }) => {
+    const { email, password } = ownerUserCredentials();
+    const original = "Why this site exists";
+    const htmlTitle = `<p>${original}</p>`;
+
+    await loginViaModal(page, email, password);
+    await page.goto("/blog/why-this-site-exists");
+    await page.getByRole("button", { name: "Edit" }).click();
+    const titleField = page.getByLabel("Title (HTML)");
+    const previous = await titleField.inputValue();
+
+    try {
+      await titleField.fill(htmlTitle);
+      await page.getByRole("button", { name: "Save" }).click();
+      await expect(page.getByRole("heading", { name: original })).toBeVisible();
+      await expect(page.getByText(`<p>${original}</p>`)).toHaveCount(0);
+
+      await page.goto("/");
+      await expect(page.getByRole("link", { name: original })).toBeVisible();
+      await expect(page.getByText(`<p>${original}</p>`)).toHaveCount(0);
+    } finally {
+      await page.goto("/blog/why-this-site-exists");
+      await page.getByRole("button", { name: "Edit" }).click();
+      await page.getByLabel("Title (HTML)").fill(previous);
+      await page.getByRole("button", { name: "Save" }).click();
+      await expect(page.getByRole("heading", { name: original })).toBeVisible();
+    }
+  });
+
   test("should render HTML in the home intro", async ({ page }) => {
     const { email, password } = ownerUserCredentials();
     const marker = `HTML intro ${Date.now()}`;
