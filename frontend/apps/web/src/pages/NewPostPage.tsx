@@ -61,16 +61,16 @@ export function NewPostPage() {
           <textarea value={body} onChange={(event) => setBody(event.target.value)} required />
         </label>
         <p className="quiet field-hint">HTML is rendered on the page.</p>
-        <label className="field" style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <input type="checkbox" checked={published} onChange={(event) => setPublished(event.target.checked)} />
-          Publish now
-        </label>
         {error && <p className="error">{error}</p>}
-        <p className="page-actions">
+        <div className="page-actions">
+          <label className="field-check">
+            <input type="checkbox" checked={published} onChange={(event) => setPublished(event.target.checked)} />
+            Publish now
+          </label>
           <button type="submit" className="text-action" disabled={saving}>
             {saving ? 'Saving…' : published ? 'Publish' : 'Save draft'}
           </button>
-        </p>
+        </div>
       </form>
     </main>
   )
