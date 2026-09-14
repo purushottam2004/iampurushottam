@@ -46,10 +46,11 @@ def seed_journal():
             {"key": journal_data.OWNER_SETTING_KEY, "value": journal_data.SITE_OWNER_ID},
             {"key": journal_data.WHATSAPP_PHONE_KEY, "value": journal_data.WHATSAPP_PHONE},
             {"key": journal_data.CONTACT_EMAIL_KEY, "value": journal_data.CONTACT_EMAIL},
+            {"key": journal_data.LINKEDIN_URL_KEY, "value": journal_data.LINKEDIN_URL},
         ],
         on_conflict="key",
     ).execute()
-    print("  Upserted site_settings owner_id, whatsapp_phone, contact_email")
+    print("  Upserted site_settings owner_id, whatsapp_phone, contact_email, linkedin_url")
 
     intro_photo_url = _upload_intro_photo(supabase)
     content_rows = [

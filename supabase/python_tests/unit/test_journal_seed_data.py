@@ -9,6 +9,8 @@ from python_seeds.data._002_data_journal import (
     INTRO_PHOTO_FILE,
     INTRO_PHOTO_OBJECT_PATH,
     INTRO_PHOTO_URL_PLACEHOLDER,
+    LINKEDIN_URL,
+    LINKEDIN_URL_KEY,
     OWNER_SETTING_KEY,
     POSTS,
     SITE_OWNER_ID,
@@ -26,8 +28,10 @@ def test_owner_matches_seed_user():
     assert OWNER_SETTING_KEY == "owner_id"
     assert WHATSAPP_PHONE_KEY == "whatsapp_phone"
     assert CONTACT_EMAIL_KEY == "contact_email"
+    assert LINKEDIN_URL_KEY == "linkedin_url"
     assert WHATSAPP_PHONE == "15555550100"
     assert CONTACT_EMAIL == "hello@example.com"
+    assert LINKEDIN_URL == "https://www.linkedin.com/in/purushottam-dafure-b4063924b/"
 
 
 def test_site_copy_is_present():

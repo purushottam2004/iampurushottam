@@ -483,6 +483,16 @@ main > .lead-heading:not(:first-child) {
   color: #fff;
 }
 
+.contact-fab-linkedin {
+  background: #0a66c2;
+  color: #fff;
+}
+
+.contact-fab-linkedin:hover {
+  background: #004182;
+  color: #fff;
+}
+
 .contact-fab-mail {
   background: var(--ink);
   color: var(--paper);

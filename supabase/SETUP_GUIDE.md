@@ -57,7 +57,7 @@ python python_seeds/_001_seed_users.py   # one script
 python unseed.py --all                   # wipe app tables, then seed.py again
 ```
 
-Default password is `password123` (see `python_seeds/data/_001_data_users.py`). E2E login specs use `test@example.com` / that password. Locally the journal owner is `seed_user@gmail.com`, stored as `site_settings.owner_id` by `_002_seed_journal.py`. On a hosted project, change that row in Studio to your real user uuid — do not edit the migration. Sample posts, about/intro copy, and contact buttons (`whatsapp_phone`, `contact_email`) also come from `_002_seed_journal.py` (HTML bodies). The homepage intro photo is `python_seeds/data/photos/waterfall_short_high_smile.jpg`, uploaded to `photos/intro/waterfall_short_high_smile.jpg`; the intro HTML `src` is filled with that object's public URL for the current `SUPABASE_URL`.
+Default password is `password123` (see `python_seeds/data/_001_data_users.py`). E2E login specs use `test@example.com` / that password. Locally the journal owner is `seed_user@gmail.com`, stored as `site_settings.owner_id` by `_002_seed_journal.py`. On a hosted project, change that row in Studio to your real user uuid — do not edit the migration. Sample posts, about/intro copy, and contact buttons (`whatsapp_phone`, `contact_email`, `linkedin_url`) also come from `_002_seed_journal.py` (HTML bodies). The homepage intro photo is `python_seeds/data/photos/waterfall_short_high_smile.jpg`, uploaded to `photos/intro/waterfall_short_high_smile.jpg`; the intro HTML `src` is filled with that object's public URL for the current `SUPABASE_URL`.
 
 ### Python tests
 

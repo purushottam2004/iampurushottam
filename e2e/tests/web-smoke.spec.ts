@@ -20,6 +20,10 @@ test.describe("Web smoke", () => {
       "href",
       "https://wa.me/15555550100"
     );
+    await expect(page.getByRole("link", { name: "Open LinkedIn" })).toHaveAttribute(
+      "href",
+      "https://www.linkedin.com/in/purushottam-dafure-b4063924b/"
+    );
     await expect(page.getByRole("link", { name: "Send email" })).toHaveAttribute(
       "href",
       "mailto:hello@example.com"

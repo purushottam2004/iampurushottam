@@ -15,6 +15,8 @@ from python_seeds.data._002_data_journal import (
     CONTACT_EMAIL_KEY,
     INTRO_PHOTO_BUCKET,
     INTRO_PHOTO_OBJECT_PATH,
+    LINKEDIN_URL,
+    LINKEDIN_URL_KEY,
     OWNER_SETTING_KEY,
     POSTS,
     SITE_OWNER_ID,
@@ -56,6 +58,7 @@ def test_seed_is_idempotent_then_unseed_clears_users(admin_client):
         OWNER_SETTING_KEY: SITE_OWNER_ID,
         WHATSAPP_PHONE_KEY: WHATSAPP_PHONE,
         CONTACT_EMAIL_KEY: CONTACT_EMAIL,
+        LINKEDIN_URL_KEY: LINKEDIN_URL,
     }
     intro = (
         admin_client.table("site_content")

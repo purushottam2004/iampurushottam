@@ -8,8 +8,10 @@ SITE_OWNER_ID = SEED_USER_ID
 OWNER_SETTING_KEY = "owner_id"
 WHATSAPP_PHONE_KEY = "whatsapp_phone"
 CONTACT_EMAIL_KEY = "contact_email"
+LINKEDIN_URL_KEY = "linkedin_url"
 WHATSAPP_PHONE = "15555550100"
 CONTACT_EMAIL = "hello@example.com"
+LINKEDIN_URL = "https://www.linkedin.com/in/purushottam-dafure-b4063924b/"
 
 INTRO_PHOTO_BUCKET = "photos"
 INTRO_PHOTO_OBJECT_PATH = "intro/waterfall_short_high_smile.jpg"
@@ -29,7 +31,7 @@ HOME_INTRO = """<p><strong>Welcome, glad you're here.</strong></p>
   </div>
 </div>
 <p>This site is where I write in public — half-formed ideas, blogs, my projects, and things I'm still figuring out.</p>
-<p>If something here resonates, say hello — you'll find me on WhatsApp or email just below.</p>
+<p>If something here resonates, say hello — you'll find me on WhatsApp, email, or LinkedIn just below.</p>
 """
 
 
