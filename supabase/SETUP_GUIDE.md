@@ -90,4 +90,8 @@ Public URL for a file at path `<path>`:
 
 `SUPABASE_URL` is in [`.env`](./.env.example). Local example: `http://127.0.0.1:54321/storage/v1/object/public/photos/hero.jpg`. In JS: `supabase.storage.from('photos').getPublicUrl('hero.jpg').data.publicUrl`.
 
+### Content revisions
+
+Updating intro, about, or a post (or deleting a post) copies the previous row into `public.content_revisions`. There is no restore UI yet; look at that table in Studio if you need an older copy. Identical saves do not add a row. `unseed.py` wipes these with the other journal tables.
+
 Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).

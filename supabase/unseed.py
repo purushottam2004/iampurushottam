@@ -83,6 +83,13 @@ def wipe_site_content(supabase) -> None:
     print_success(f"public.site_content: wiped {total} row(s)")
 
 
+def wipe_content_revisions(supabase) -> None:
+    print_info("Wiping public.content_revisions")
+    result = supabase.table("content_revisions").delete().neq("entity", "").execute()
+    total = len(result.data or [])
+    print_success(f"public.content_revisions: wiped {total} row(s)")
+
+
 def wipe_site_settings(supabase) -> None:
     print_info("Wiping public.site_settings")
     result = supabase.table("site_settings").delete().neq("key", "").execute()
@@ -105,6 +112,7 @@ def make_steps(supabase):
     return (
         ("posts", lambda: wipe_posts(supabase)),
         ("site_content", lambda: wipe_site_content(supabase)),
+        ("content_revisions", lambda: wipe_content_revisions(supabase)),
         ("site_settings", lambda: wipe_site_settings(supabase)),
         ("photos", lambda: wipe_photos(supabase)),
         ("users", lambda: wipe_users(supabase)),
@@ -118,6 +126,8 @@ TABLE_ALIASES = {
     "public.posts": "posts",
     "site_content": "site_content",
     "public.site_content": "site_content",
+    "content_revisions": "content_revisions",
+    "public.content_revisions": "content_revisions",
     "site_settings": "site_settings",
     "public.site_settings": "site_settings",
     "photos": "photos",

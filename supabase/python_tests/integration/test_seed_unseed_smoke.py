@@ -93,6 +93,7 @@ def test_seed_is_idempotent_then_unseed_clears_users(admin_client):
         assert remaining == []
         assert (admin_client.table("posts").select("id").execute().data or []) == []
         assert (admin_client.table("site_content").select("key").execute().data or []) == []
+        assert (admin_client.table("content_revisions").select("id").execute().data or []) == []
         assert (admin_client.table("site_settings").select("key").execute().data or []) == []
         listed_after = admin_client.storage.from_(INTRO_PHOTO_BUCKET).list("intro")
         assert not any(
